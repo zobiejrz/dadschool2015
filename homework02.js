@@ -41,10 +41,7 @@ var total = 0;
 // prompt for the length of the side of a square
 // read and store squareSide
 
-
-
-
-var prompt = require('prompt');
+var prompt = require('prompt')
 
 prompt.start();
 
@@ -54,7 +51,10 @@ prompt.get(['kwhrs'], function (err, result) {
 	console.log('  KWHRS: ' + result.kwhrs);
 	kwhrs = result.kwhrs;
 
-
+while(!isValidValue(kwhrs)){
+	
+	prompt.start();
+}
 	// Calculate kwhrsCost
 	// Calculate countySur
 	// Calculate cityTax1 / cityTax2
@@ -64,7 +64,7 @@ prompt.get(['kwhrs'], function (err, result) {
 	countySur = 9.5 * kwhrs;
 	cityTax1 = 3.25 * kwhrs;
 	//cityTax2 = 3.4 * kwhrs;
-	stateFee = 4.5
+	stateFee = 4.5;
 	total = kwhrsCost + countySur + cityTax1 + stateFee;
 	//total = kwhrsCost + countySur + cityTax2 + stateFee;
 
