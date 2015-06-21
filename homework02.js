@@ -1,18 +1,18 @@
-function isInt(n)
-{
-	var retVal = (n % 1 === 0);
-	return retVal;
-}
+// function isInt(n)
+// {
+// 	var retVal = (n % 1 === 0);
+// 	return retVal;
+// }
 
-// return true if 'n' is a valid value. otherwise return false
-function isValidValue (n)
-{
-	if (isInt(n) && (n > 0))
-	{
-		return true;
-	}
-	return false;
-}
+// // return true if 'n' is a valid value. otherwise return false
+// function isValidValue (n)
+// {
+// 	if (isInt(n) && (n > 0))
+// 	{
+// 		return true;
+// 	}
+// 	return false;
+// }
 
 function onErr(err)
 {
@@ -43,18 +43,25 @@ var total = 0;
 
 var prompt = require('prompt')
 
+
+var schema = {
+    properties: {
+      kwhrs: {
+        pattern: /^[0-9]+$/,
+        message: 'Only positive integers are allowed.',
+        required: true
+      }
+    }
+  };
+
+
 prompt.start();
 
-prompt.get(['kwhrs'], function (err, result) {
+prompt.get(schema, function (err, result) {
 	if (err) { return onErr(err); }
-	console.log('Command-line input received:');
 	console.log('  KWHRS: ' + result.kwhrs);
 	kwhrs = result.kwhrs;
 
-while(!isValidValue(kwhrs)){
-	
-	prompt.start();
-}
 	// Calculate kwhrsCost
 	// Calculate countySur
 	// Calculate cityTax1 / cityTax2
