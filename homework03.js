@@ -17,8 +17,8 @@ X = ((C * E) - (F * B)) / ((A * E) - (D * B));
 Y = ((A * F) - (D * F)) / ((A * C) - (D * B));
 //display correct answer
 console.log("Using the number you gave us, the equation is:");
-console.log(A + "x + df" + B + "y = " + C);
+console.log(A + "x + " + B + "y = " + C);
 console.log(" and, ");
 console.log(D + "x + " + E + "y = " + F);
-console.log("In this equatin, 'X' is equal to " + X + ", and 'Y' is equal to " + Y + ".");
+console.log("In this equation, 'X' is equal to " + X + ", and 'Y' is equal to " + Y + ".");
 //All done!
