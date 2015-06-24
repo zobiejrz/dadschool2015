@@ -4,7 +4,7 @@ function onErr(err)
 	return 1;
 }
 //initialize variables
-var split = "0 1 2 3 4 5".split(" ");
+var split = "1 2 3 4 5 6".split(" ");
 var X = 0;
 var Y = 0;
 var A = split[0];
@@ -30,7 +30,7 @@ var prompt = require('prompt')
 var schema = {
     properties: {
       Numbers: {
-        pattern: /^[0-9](\s)+$/,
+        pattern: /([1-9])\s/,
         message: 'Separate each number with a space.',
         required: true
       }
