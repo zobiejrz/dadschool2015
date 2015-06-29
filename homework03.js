@@ -36,7 +36,8 @@ prompt.start();
 prompt.get(schema, function (err, result) {
   if (err) { return onErr(err); }
   console.log('  Numbers: ' + result.Numbers);
-
+x = Math.round (x*100);
+y = Math.round (y*100);
   var splitNumbers = result.Numbers.split (" ");
   a = splitNumbers[0];
   console.log ("\ta = " + a);
@@ -57,11 +58,15 @@ prompt.get(schema, function (err, result) {
 
   x = ((c * e) - (f * b)) / ((a * e) - (d * b));
   y = ((a * f) - (d * c)) / ((a * e) - (d * b));
+  
+  x = x.toPrecision(3);
+  y = y.toPrecision(3);
+
   //display correct answer
   console.log("Using the number you gave us, the equation is:");
   console.log(a + "x + " + b + "y = " + c);
-  console.log(" and, ");
+  console.log(" and ");
   console.log(d + "x + " + e + "y = " + f);
-  console.log("In this equation, 'X' is equal to " + x + ", and 'Y' is equal to " + y + ".");
+  console.log("In this equation, 'X' is equal to " + x + " and 'Y' is equal to " + y + ".");
 });
 //All done!
