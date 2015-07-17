@@ -14,7 +14,8 @@ function main()
 	var splitNumbers = [];
 
 	//introduction
-	
+	console.log("If you give me three (3) digits, I will decide if put in an equation whether");
+	console.log("they have two (2) real roots, two (2) imaginary roots, or one (1) real root.");
 	//prompt for var typeA B and C.
 	var prompt = require('prompt');
 
@@ -22,7 +23,7 @@ function main()
     properties: {
       Values: {
 		  //TODO: regex doesn't handle negative numbers
-        pattern: /(\d+)\s+(\d+)\s+(\d+)/,
+        pattern: /(-?\d+)\s+(-?\d+)\s+(-?\d+)/,
         message: 'The format should be: A B C. Do not forget the space in between each value.',
         required: true
       }
