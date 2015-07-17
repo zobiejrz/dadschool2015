@@ -10,19 +10,16 @@ function main() {
     diameter = 0,
     volume = 0,
     surfaceArea = 0,
-    unitMeasure = "units";
-  // slantHeight = 0;// TODO: Math.sqrt((diameter/2 * diameter/2) + (height * height));
+    unitMeasure = "";
+
   var splitNumbers = [];
   //introduction/explanation
-  
   console.log("Input two the height, diameter, and unit for a cone, and I will output the Surface Area and Volume");
   
   //prompt for unit measurement
-  
   //prompt for diameter and height
   //save diameter and height to their respective variables
-  var prompt = require('prompt')
-
+  var prompt = require('prompt');
 
   var schema = {
     properties: {
@@ -34,49 +31,35 @@ function main() {
     }
   };
 
-
   prompt.start();
-  // var height = 3,
-  // 	diameter = 8,
-  // 	volume = 0,
-  // 	surfaceArea = 0,
-  // 	unitMeasure = "units",
-  // 	slantHeight = Math.sqrt((diameter/2 * diameter/2) + (height * height));
-  // var splitNumbers = "";
+
   prompt.get(schema, function (err, result) {
     if (err) { return onErr(err); }
-    
 
-    // height = toString(height);
-    // volume = toString(volume);
-  
     console.log('  Values: ' + result.Values);
     splitNumbers = result.Values.split(" ");
     height = splitNumbers[0];
     console.log("\theight = " + height);
     diameter = splitNumbers[1];
-    console.log("\tdiameter = " + volume);
+    console.log("\tdiameter = " + diameter);
     unitMeasure = splitNumbers[2];
     console.log("\tunitMeasure = " + unitMeasure);
     
-    //height = height.toPrecision(4);
-    //volume = volume.toPrecision(4);
-    
     //calculate answer
-    surfaceArea = (3.14159 * (diameter / 2) ^ 2) +
-    (2 * 3.14159 * (diameter / 2)) / 2 * Math.sqrt((diameter / 2 * diameter / 2) + (height * height));
-    volume = ((3.14159 * (diameter / 2) ^ 2) * height) / 3;
-  
+    var radius = diameter / 2;
+    surfaceArea = Math.PI * radius * (radius + Math.sqrt(Math.pow(height, 2) + Math.pow(radius, 2)));
+    volume = ((Math.PI * Math.pow(radius, 2)) * height) / 3;
+    var sA = surfaceArea.toFixed(4);
+    var v = volume.toFixed(4);
+    
     //display answer with measurment
-  
     console.log("A cone with a height of " + height + " " + unitMeasure + " and a diameter of " + diameter + " " + unitMeasure);
-    console.log("will have a Surface Area of " + surfaceArea + " square " + unitMeasure);
-    console.log("and a Volume of " + volume + " cubic " + unitMeasure);
-
+    console.log("will have a Surface Area of " + sA + " square " + unitMeasure);
+    console.log("and a Volume of " + v + " cubic " + unitMeasure);
   });
   
   //All done!
 }
-
+ 
 // run the program
 main();
