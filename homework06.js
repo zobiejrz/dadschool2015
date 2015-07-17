@@ -12,7 +12,7 @@ function main() {
     properties: {
       Values: {
         pattern: /([RNrn])\s+(\d+)/,
-        message: 'Error, incorrect Value.\tYou must do input [R/N] [number]',
+        message: 'Error, incorrect Value. You must do input [R/N] [number]',
         required: true
       }
     }
