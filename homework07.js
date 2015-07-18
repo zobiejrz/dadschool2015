@@ -3,11 +3,10 @@ function onErr(err) {
   return 1;
 }
 
-function main()
-{
+function main() {
   var countNum = 0;
   var resultNum = 0;
-  
+
   console.log("I will calculate an approximation of pi if you give me what digit to approximate to.")
   //prompt for what digit of pi we go to
   var prompt = require('prompt');
@@ -27,16 +26,12 @@ function main()
 
   prompt.get(schema, function (err, result) {
     if (err) { return onErr(err); }
-    var digits = prompt.Digits;
+    var digits = result.Digit;
     
-    //while loop that will actually calculate what the app. of pi is
-    while(digits > countNum)
-    {
+    //for- loop that will actually calculate what the app. of pi is
+    for(var i=0; i<digits; i++) {
       resultNum = (resultNum + (1 / countNum));
-      countNum++;
-      console.log(countNum);
     }
-    
     console.log("Approximating pi to " + digits + " digits is approximatly to");
     console.log("\t" + resultNum.toFixed(6));
   });
