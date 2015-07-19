@@ -14,7 +14,7 @@ function main() {
     properties: {
       Digit: {
         //regex pattern that only allows positive integers
-        pattern: /([1-9]+)([0]+)?/,
+        pattern: /^[1-9]\d*/,
         message: 'Error,You can only input a postitive integer',
         required: true
       }
