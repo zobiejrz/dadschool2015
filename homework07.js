@@ -4,7 +4,6 @@ function onErr(err) {
 }
 
 function main() {
-  var countNum = 0;
   var resultNum = 0;
 
   console.log("I will calculate an approximation of pi if you give me what digit to approximate to.")
@@ -29,10 +28,11 @@ function main() {
     var digits = result.Digit;
     
     //for- loop that will actually calculate what the app. of pi is
-    for(var i=0; i<digits; i++) {
-      resultNum = (resultNum + (1 / countNum));
+    for(var i = digits; i > 0; i--) {
+      resultNum = Math.pow(resultNum + (1 / i), 2);
     }
-    console.log("Approximating pi to " + digits + " digits is approximatly to");
+    resultNum = Math.sqrt(resultNum * 6);
+    console.log("Approximating pi to " + digits + " digits is approximatly");
     console.log("\t" + resultNum.toFixed(6));
   });
 }
