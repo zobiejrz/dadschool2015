@@ -1,0 +1,65 @@
+boyd% date
+Mon Sep 18 08:49:34 PDT 2000
+boyd% cat progAss2b.cpp
+/*******************************************************************************
+********************************************************************************
+**
+**  Nathan A. Zobrist
+**  Assignment #2
+**  CSC 135, Section 1
+**
+********************************************************************************
+**
+**  This program is designed to calculate the cost of taxes and fees associated
+**    with a constant amount of kilowatt hours.  It itimizes the taxes and then
+**    prints a total amount due.
+**
+**  input: none
+**  output: billing information (incl. base cost, city and county taxes, state
+**    fees, and a grand total due)
+**
+********************************************************************************
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+
+const float KWHRS = 265.2;			// kilowatt hours used
+
+int main ()
+{
+	float costPerKWHR = .61;
+		// electricity cost per kilowatt hour
+	float countyTax = .095, cityTax = .034, stateFee = 4.5;
+		// fees and taxes
+	
+	float elecCost = KWHRS * costPerKWHR;
+		// pretax cost for electricity
+	float totalCost = elecCost * (1 + countyTax + cityTax) + stateFee;
+		// total cost: base cost + taxes and fees
+	
+	cout << "\nThe bill for " << KWHRS << " kilowatt hours of electricity is:"
+		 << "\n\tBase cost (" << KWHRS << " hours):     " << elecCost
+		 << "\n\tCounty surcharge:             " << elecCost * countyTax
+		 << "\n\tCity utility tax:              " << elecCost * cityTax
+		 << "\n\tState fees:                    " << stateFee
+		 << "\n\t                           -----------"
+		 << "\n\tTotal due:                   " << totalCost << endl;
+		 
+	return 0;
+
+}
+boyd% g++ progAss2b.cpp
+boyd% a.out
+
+The bill for 265.2 kilowatt hours of electricity is:
+	Base cost (265.2 hours):     161.772
+	County surcharge:             15.3683
+	City utility tax:              5.50025
+	State fees:                    4.5
+	                           -----------
+	Total due:                   187.141
+boyd% exit
+boyd% 
+Process shell finished

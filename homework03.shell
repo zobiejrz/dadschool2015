@@ -1,0 +1,116 @@
+anson% date
+date
+Mon Sep 25 07:47:39 PDT 2000
+anson% cat progAss3.cpp
+cat progAss3.cpp
+/*******************************************************************************
+********************************************************************************
+**
+**  Nathan A. Zobrist
+**  Assignment #3
+**  CSC 135, Section 1
+**
+********************************************************************************
+**
+**  This program is designed to calculate the values of x and y, using Cramer's
+**    Rule, given two equations in standard form (ie. x + y = C).
+**
+**  input: six variables representing two two variable equations.  Input will
+**    be in the form x-value (space) y-value (space) total-value.
+**  output: print the two equations in standard form as well as x and y values.
+**    x and y will both be rounded to three decmamil places.
+**
+********************************************************************************
+*******************************************************************************/
+
+
+#include <iostream>
+#include <iomanip>		// setprecision(), setw()
+
+using namespace std;
+
+int main ()
+{
+	int a, b, c;
+	int d, e, f;
+	float x, y;
+	
+	cout << setiosflags (ios::fixed) << setprecision (3);
+	
+	cout << "\nThis program is designed to use Cramer's Rule to calculate"
+		 << "\n\tx and y for given equations.\n";
+	
+	cout << "\nPlease enter the first set of variables: ";
+	cin >> a >> b >> c;	
+	
+	cout << "\nPlease enter the second set of variables: ";
+	cin >> d >> e >> f;
+	
+	x = float(c * e - f * b) / float(a * e - d * b);   // These equations
+	y = float(a * f - d * c) / float(a * e - d * b);   // are Cramer's Rule
+	
+	cout << "\n\nGiven the equations:"
+		 << "\n\t" << a << "x + " << b << "y = " << c
+		 << "\n\t" << d << "x + " << e << "y = " << f
+		 << "\n\tx =" << setw (7) << x
+		 << "\n\ty =" << setw (7) << y << "\n\n";
+	
+	return 0;
+}
+anson% g++ progAss3.cpp
+g++ progAss3.cpp
+anson% a.out
+a.out
+
+This program is designed to use Cramer's Rule to calculate
+	x and y for given equations.
+
+Please enter the first set of variables: 4 -1 4
+
+Please enter the second set of variables: 2 2 17
+
+
+Given the equations:
+	4x + -1y = 4
+	2x + 2y = 17
+	x =  2.500
+	y =  6.000
+
+anson% a.out
+a.out
+
+This program is designed to use Cramer's Rule to calculate
+	x and y for given equations.
+
+Please enter the first set of variables: 5 4 -10
+
+Please enter the second set of variables: -3 8 19
+
+
+Given the equations:
+	5x + 4y = -10
+	-3x + 8y = 19
+	x = -3.000
+	y =  1.250
+
+anson% a.out
+a.out
+
+This program is designed to use Cramer's Rule to calculate
+	x and y for given equations.
+
+Please enter the first set of variables: 9 16 -1
+
+Please enter the second set of variables: 15 64 3
+
+
+Given the equations:
+	9x + 16y = -1
+	15x + 64y = 3
+	x = -0.333
+	y =  0.125
+
+anson% exit
+exit
+anson% 
+Process shell finished
