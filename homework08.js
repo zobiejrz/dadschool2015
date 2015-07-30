@@ -27,17 +27,16 @@ function readAndProcessFile(fileName) {
 		// Process Input
 		var bankData = fileData.split(/\s+/);
 		var lineCounter = 0;
-		var badData = 0;
+
 
 
 
 		// Loop until legal term 'q'
 		while (bankData[lineCounter] != 'q') {
-			// console.info("while (!q)");
+			var badData = 0;
 			var account = 0;
 			var accountBal = 0;
 			var checkCounter = 0;
-			// console.info("accountBal 1: " + accountBal);
 			// Loop until legal term 'e'
 			while (bankData[lineCounter] != 'e') {
 				// console.info("while(!e)");
@@ -54,27 +53,23 @@ function readAndProcessFile(fileName) {
 				// If 'd' add next number to inital amount in the account
 				else if (bankData[lineCounter] == 'd') {
 					console.log("Deposit $" + line);
-					// console.log("accountBal A:" + accountBal);
-					accountBal = (accountBal + line);
-					// console.log("accountBal B:" + accountBal);
+					accountBal = (Number(accountBal) + line);
 				}
 				// If 'c' subtract next number
 				// Add to number of 'c's
 				else if (bankData[lineCounter] == 'c') {
 					console.log("Check for $" + line);
 					accountBal = (accountBal - line);
-					console.log("checkCounter1: " + checkCounter);
 					checkCounter++;
-					console.log("checkCounter2: " + checkCounter);
 				}
 				// Else ignore
-				else {
+				else if(bankData[lineCounter] != 'b' || bankData[lineCounter] != 'c' || bankData[lineCounter] != 'd'){
 					// console.warn("BAD DATA!");
-					badData ++
+					badData++;
+					console.log("Bad Data: " + bankData[lineCounter]);
 				}
 
-			// console.info("accountBal 2: " + accountBal);
-			lineCounter++;
+				lineCounter++;
 			}// End second loop
 			checkCounter = (checkCounter * 0.15);
 			console.log("Account Balance: $" + accountBal);
@@ -82,7 +77,7 @@ function readAndProcessFile(fileName) {
 			console.log("Acount Balance with service charge: $" + (accountBal - checkCounter));
 			lineCounter++;
 		}// End first loop
-		// console.log("Number of incorrect inputs: " + badData);
+		console.log("Number of incorrect inputs: " + badData);
 	});
 
 
