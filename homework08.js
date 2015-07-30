@@ -27,13 +27,12 @@ function readAndProcessFile(fileName) {
 		// Process Input
 		var bankData = fileData.split(/\s+/);
 		var lineCounter = 0;
-
+		var badData = 0;
 
 
 
 		// Loop until legal term 'q'
 		while (bankData[lineCounter] != 'q') {
-			var badData = 0;
 			var account = 0;
 			var accountBal = 0;
 			var checkCounter = 0;
@@ -63,10 +62,8 @@ function readAndProcessFile(fileName) {
 					checkCounter++;
 				}
 				// Else ignore
-				else if(bankData[lineCounter] != 'b' || bankData[lineCounter] != 'c' || bankData[lineCounter] != 'd'){
-					// console.warn("BAD DATA!");
+				else if(isNaN(bankData[lineCounter])){
 					badData++;
-					console.log("Bad Data: " + bankData[lineCounter]);
 				}
 
 				lineCounter++;
@@ -79,13 +76,11 @@ function readAndProcessFile(fileName) {
 		}// End first loop
 		console.log("Number of incorrect inputs: " + badData);
 	});
-
-
 }
 
 function main(input) {
-	readAndProcessFile("homework08.data1");
-	// readAndProcessFile("homework08.data2");
+	// readAndProcessFile("homework08.data1");
+	readAndProcessFile("homework08.data2");
 }
 // Execute the program!
 main();
