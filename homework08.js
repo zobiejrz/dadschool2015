@@ -25,55 +25,64 @@ function readAndProcessFile(fileName) {
 		// console.log(fileData);
 		
 		// Process Input
-		var checkCounter = 0;
-		// TODO: Put in the service charge for checking
-		var checkTotal = 0;
 		var bankData = fileData.split(/\s+/);
 		var lineCounter = 0;
-		var account = 0;
-		var accountBal = 0;
+		var badData = 0;
+
+
+
 		// Loop until legal term 'q'
 		while (bankData[lineCounter] != 'q') {
-		
+			// console.info("while (!q)");
+			var account = 0;
+			var accountBal = 0;
+			var checkCounter = 0;
+			// console.info("accountBal 1: " + accountBal);
 			// Loop until legal term 'e'
 			while (bankData[lineCounter] != 'e') {
+				// console.info("while(!e)");
+				var line = Number(bankData[lineCounter + 1]);
 				// Check for the legal term 'b'
-
-				if (bankData[lineCounter] == 'b')
-				{
-					lineCounter++;
-					account = bankData[lineCounter];
+				if (bankData[lineCounter] == 'b') {
+					account = line;
 					//console.log second number(account number)
 					//console.log third number (inital amount in account)
-					accountBal = bankData[lineCounter + 1];
+					accountBal = bankData[lineCounter + 2];
 					console.log("\nAccount number: " + account);
 					console.log("\nAccount balance: $" + accountBal);
 				}
 				// If 'd' add next number to inital amount in the account
 				else if (bankData[lineCounter] == 'd') {
-					console.log("Deposit $" + bankData[lineCounter + 1]);
-					accountBal = (accountBal + bankData[lineCounter + 1]);
-					lineCounter++;
+					console.log("Deposit $" + line);
+					// console.log("accountBal A:" + accountBal);
+					accountBal = (accountBal + line);
+					// console.log("accountBal B:" + accountBal);
 				}
 				// If 'c' subtract next number
 				// Add to number of 'c's
-				else if (bankData[lineCounter] == 'c')
-				{
-					console.log("Check for $" + bankData[lineCounter + 1]);
-					accountBal = (accountBal - bankData[lineCounter + 1]);
+				else if (bankData[lineCounter] == 'c') {
+					console.log("Check for $" + line);
+					accountBal = (accountBal - line);
+					console.log("checkCounter1: " + checkCounter);
 					checkCounter++;
-					lineCounter++;
+					console.log("checkCounter2: " + checkCounter);
 				}
 				// Else ignore
-				else 
-				{
-					lineCounter++;
+				else {
+					// console.warn("BAD DATA!");
+					badData ++
 				}
 
+			// console.info("accountBal 2: " + accountBal);
+			lineCounter++;
 			}// End second loop
-			console.log("Acount Balance: $" + accountBal);
-			lineCounter++
+			checkCounter = (checkCounter * 0.15);
+			console.log("Account Balance: $" + accountBal);
+			console.log("Check service charge ($0.15 per check): $" + checkCounter);
+			console.log("Acount Balance with service charge: $" + (accountBal - checkCounter));
+			lineCounter++;
 		}// End first loop
+		// console.log("Number of incorrect inputs: " + badData);
 	});
 
 
@@ -81,6 +90,7 @@ function readAndProcessFile(fileName) {
 
 function main(input) {
 	readAndProcessFile("homework08.data1");
+	// readAndProcessFile("homework08.data2");
 }
 // Execute the program!
 main();
