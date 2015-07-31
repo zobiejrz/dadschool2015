@@ -68,9 +68,10 @@ function readAndProcessFile(fileName) {
 
 				lineCounter++;
 			}// End second loop
-			checkCounter = (checkCounter * 0.15);
 			console.log("Account Balance: $" + accountBal);
-			console.log("Check service charge ($0.15 per check): $" + checkCounter);
+			console.log("Checks processed: " + checkCounter);
+			checkCounter = (checkCounter * 0.15);			
+			console.log("Check service charge ($0.15 per check): $" + checkCounter.toFixed(2));
 			console.log("Acount Balance with service charge: $" + (accountBal - checkCounter));
 			lineCounter++;
 		}// End first loop
@@ -79,7 +80,7 @@ function readAndProcessFile(fileName) {
 }
 
 function main(input) {
-	// readAndProcessFile("homework08.data1");
+	readAndProcessFile("homework08.data1");
 	readAndProcessFile("homework08.data2");
 }
 // Execute the program!
