@@ -1,0 +1,207 @@
+fenton% date
+date
+Wed Oct 18 22:12:58 PDT 2000
+fenton% cat progAss8.cpp
+cat progAss8.cpp
+/*******************************************************************************
+********************************************************************************
+**
+**  Nathan A. Zobrist
+**  Assignment #8
+**  CSC 135, Section 1
+**
+********************************************************************************
+**
+**  This program is designed to act as a simple checkbook.  It will use a data
+**    file for input as detailed below.  It uses a forever loop to cycle
+**    through the switch options until a 'Q' is encountered and the program
+**    quits.
+**
+**  input: This program is designed to be run using UNIX redirection for input.
+**    Because redirection is to be used for input, there are no prompts
+**    for user interaction.  The data file should contain data as detailed in
+**    the assignment description.  It will be divided into groups of data.
+**    Each data group consists of several lines.  Each valid line will start
+**    with a code letter followed by either an account number or account
+**    balance.
+**  output: For each group of data the following will be printed: account
+**    number, opening balance, ending balance, charge for any checks, and 
+**    final balance.  All dollar amounts will be printed with dollar sign and
+**    two decimal places.  At the end of the data file, a message listing the 
+**    number of invalid lines will be printed.
+**
+********************************************************************************
+*******************************************************************************/
+
+
+#include <iostream>
+#include <iomanip>                  // setprecision()
+
+const float CHECK_CHARGE = .15;     // per check charge
+
+using namespace std;
+
+int main ()
+{
+    char action = '\0';
+        // one letter action to take: b = begin, c = check, d = deposit,
+        // e = end of account info., q = quit program
+    int account = 0, badLines = 0, checks = 0;
+        // account #, # of bad lines in files, # of checks written
+    float balance = 0, money = 0;
+        // balance = account balance, money = amount of check or deposit
+    
+    cout << setiosflags(ios::fixed) << setprecision(2)  << endl;
+
+  for(;;)
+  {
+      cin >> action;
+    
+      if (action == 'Q' || action == 'q')
+      {
+          cout << "There were " << badLines << " lines of bad data in the file."
+               << endl << endl;
+          return 0;     // break forever loop and terminate program
+      }
+         
+      switch (action)
+      {
+          case 'B':
+          case 'b': cin >> account >> money;
+                    balance = money;
+                    cout << "Account #" << account << endl
+                         << "Opening balance:      $" << setw(9)
+                         << balance << endl;
+                    break;
+          case 'C':
+          case 'c': cin >> money;
+                    balance -= money;
+                    checks++;
+                    break;
+          case 'D':
+          case 'd': cin >> money;
+                    balance += money;
+                    break;
+          case 'E': 
+          case 'e': cout << "Ending balance:       $" << setw(9) << balance 
+                         << endl << "Charge for " << checks << " checks:  $" 
+                         << setw(9) << checks * CHECK_CHARGE << endl
+                         << "Final balance:        $" << setw(9)
+                         << balance - (checks * CHECK_CHARGE) << endl << endl;
+                       
+                         balance = 0;   // reset variables to 0 so that they're
+                         checks = 0;    // ready for the next account's info.
+                       
+                         break;
+          default: cin.ignore(100, '\n');
+                   badLines++;
+                   break;
+      }
+    
+    }
+}
+fenton% g++ progAss8.cpp
+g++ progAss8.cpp
+fenton% cat progAss8.data1
+cat progAss8.data1
+b 1234 1000.0
+c 600.0
+c 25.0
+c 50.0
+d 125.0
+c 12.0
+e
+b   9876  2532.15
+d  100.00
+d 250.00
+c  12.0
+c 43.57
+c    35.00
+d 80.0
+c     113.0
+c 29.98
+d 15.0
+e
+b 2468 50.0
+d 47.0
+A mistake
+d 116.00
+e
+q
+fenton% a.out < progAss8.data1
+a.out < progAss8.data1
+
+Account #1234
+Opening balance:      $  1000.00
+Ending balance:       $   438.00
+Charge for 4 checks:  $     0.60
+Final balance:        $   437.40
+
+Account #9876
+Opening balance:      $  2532.15
+Ending balance:       $  2743.60
+Charge for 5 checks:  $     0.75
+Final balance:        $  2742.85
+
+Account #2468
+Opening balance:      $    50.00
+Ending balance:       $   213.00
+Charge for 0 checks:  $     0.00
+Final balance:        $   213.00
+
+There were 1 lines of bad data in the file.
+
+fenton% cat progAss8.data2
+cat progAss8.data2
+b 1357 0.0
+wrong 1
+d 750.0
+d   55.50
+c   423.07
+c 10.0
+e
+another problem line
+b 8642   500.0
+e
+b 4208 200.0
+c 8.0
+c 14.50
+zip
+c 11.95
+c 75.0
+c   110.50
+c 5.00
+c  13.00
+c     29.99
+d  200.0
+oops!
+c 59.99
+e
+q
+fenton% a.out < progAss8.data2
+a.out < progAss8.data2
+
+Account #1357
+Opening balance:      $     0.00
+Ending balance:       $   372.43
+Charge for 2 checks:  $     0.30
+Final balance:        $   372.13
+
+Account #8642
+Opening balance:      $   500.00
+Ending balance:       $   500.00
+Charge for 0 checks:  $     0.00
+Final balance:        $   500.00
+
+Account #4208
+Opening balance:      $   200.00
+Ending balance:       $    72.07
+Charge for 9 checks:  $     1.35
+Final balance:        $    70.72
+
+There were 4 lines of bad data in the file.
+
+fenton% exit
+exit
+fenton% 
+Process shell finished
