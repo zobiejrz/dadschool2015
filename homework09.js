@@ -1,3 +1,11 @@
+function gcd (a, b) {
+  if (!b){
+    return a;
+  }
+  
+  return gcd(b, a % b);
+}
+
 function onErr(err)//On Error function for when there is an error
 {
   console.log(err);
@@ -24,19 +32,14 @@ function calculate(fileName)// Function that will calculate the LCM and the GCF
     }
     var inputData = data.split(" ");
     console.log("Input Data:\n" + inputData);
-    // for (var i = inputData.length; i > 0; i--) // Run loop to loop through the data lines
-    // {
-    //   var digitA = inputData[i];
-    //   var digitB = inputData[i + 1];
-    //   // Run loop to calculate the LCM
-    //   while(digitA != digitB){
-        
-    //   }
-      
-      // Run loop to calculate the GCF
-
-      // Console.log the two data numbers, and their LCM and GCF
-    // }// End data loop
+    var counting = 0;
+    
+    while(counting <= inputData.length) // Run loop to loop through the data lines
+    {
+      console.log("Counting: " + counting);
+      console.log(gcd(inputData[counting], inputData[counting + 1]));
+      counting = counting + 2;
+    }// End data loop
   });//End of file download code
 } // End calculate function
 
