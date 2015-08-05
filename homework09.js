@@ -1,11 +1,30 @@
-function gcd (a, b) {
-  if (!b){
-    return a;
-  }
-  
-  return gcd(b, a % b);
+function gcf(a, b) {
+	var firstNum = 0;
+	var secondNum = 0;
+	var thirdNum = 0;
+	if (a > b) {
+		firstNum = a;
+		secondNum = b;
+	} else if (b > a) {
+		firstNum = b;
+		secondNum = a;
+	} else if( a == b){
+		return a;
+	}
+	thirdNum = firstNum % secondNum;
+	firstNum = secondNum;
+	secondNum = thirdNum;
+	while (secondNum != 0){
+	thirdNum = firstNum % secondNum;
+	firstNum = secondNum;
+	secondNum = thirdNum;
+	}
+	return firstNum;
 }
-
+function lcm (a, b, gcf){
+  var answer = ((a * b) / (gcf));
+  return answer;
+}
 function onErr(err)//On Error function for when there is an error
 {
   console.log(err);
@@ -30,14 +49,19 @@ function calculate(fileName)// Function that will calculate the LCM and the GCF
     else {
       console.log(err);
     }
-    var inputData = data.split(" ");
-    console.log("Input Data:\n" + inputData);
+    var inputData = data.split(/\s+/);
     var counting = 0;
     
-    while(counting <= inputData.length) // Run loop to loop through the data lines
+    // for (int i = 0; i < 10; i++) {}
+    
+    while(counting < (inputData.length - 1)) // Run loop to loop through the data lines
     {
-      console.log("Counting: " + counting);
-      console.log(gcd(inputData[counting], inputData[counting + 1]));
+      var gcfDisplay = gcf(inputData[counting], inputData[counting + 1]);
+      var lcmDisplay = lcm(inputData[counting], inputData[counting + 1], gcfDisplay);
+      console.log("The GCF of " + inputData[counting] + " and " + inputData[counting + 1]);
+      console.log("is equal to " + gcfDisplay);
+      console.log("The LCM of " + inputData[counting] + " and " + inputData[counting + 1]);
+      console.log("is equal to " + lcmDisplay);
       counting = counting + 2;
     }// End data loop
   });//End of file download code
