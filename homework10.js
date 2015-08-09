@@ -4,14 +4,17 @@ function onErr(err) {
 }
 function numToWord(intVal) {
   var place = intVal.length;
+  var totalPlace = place;
   var placeOne = '';
   var placeTwo = '';
   var placeThree = '';
   var placeFour = '';
+  var teen = false;
+  var teenHolder
   var placeHolder = intVal.split("");
-  for (var k = 0; k < placeHolder.length; k++ ){
+  for (var k = 0; k < placeHolder.length; k++) {
 
-    if (place == 4) {
+    if (place == 4) { // Algorithm for changing the numbers to words
       if (placeHolder[k] == 9) {
         placeOne = 'nine thousand';
       } else if (placeHolder[k] == 8) {
@@ -65,14 +68,35 @@ function numToWord(intVal) {
       } else if (placeHolder[k] == 4) {
         placeThree = 'fourty';
       } else if (placeHolder[k] == 3) {
-        placeThree = 'thirty';  
+        placeThree = 'thirty';
       } else if (placeHolder[k] == 2) {
         placeThree = 'twenty';
       } else if (placeHolder[k] == 1) {
-        placeThree = 'ten';
+        if (placeHolder[k + 1] == 9) {
+          teenHolder = 'nineteen';
+        } else if (placeHolder[k + 1] == 8) {
+          teenHolder = 'eighteen';
+        } else if (placeHolder[k + 1] == 7) {
+          teenHolder = 'seventeen';
+        } else if (placeHolder[k + 1] == 6) {
+          teenHolder = 'sixteen';
+        } else if (placeHolder[k + 1] == 5) {
+          teenHolder = 'fifteen';
+        } else if (placeHolder[k + 1] == 4) {
+          teenHolder = 'fourteen';
+        } else if (placeHolder[k + 1] == 3) {
+          teenHolder = 'thirteen';
+        } else if (placeHolder[k + 1] == 2) {
+          teenHolder = 'twelve';
+        } else if (placeHolder[k + 1] == 1) {
+          teenHolder = 'eleven';
+        } else if (placeHolder[k + 1] == 0) {
+          teenHolder = 'ten'
+        }
+        teen = true;
       }
-    } else if (place == 1) {
-      if (placeHolder[k] == 9) {
+    } else if ( place == 1 ) {
+        if (placeHolder[k] == 9) {
         placeFour = 'nine';
       } else if (placeHolder[k] == 8) {
         placeFour = 'eight';
@@ -91,18 +115,37 @@ function numToWord(intVal) {
       } else if (placeHolder[k] == 1) {
         placeFour = 'one';
       }
-
-    }
-
-      place--;
+      }
+    place--;
   }
-    console.log( 'Output: \n>>>' + placeOne + ' ' + placeTwo + ' ' + placeThree + ' ' + placeFour + '\n<<<');
+  if (teen == true) {
+    if (totalPlace == 4) { // Checks for variables are and are not displayed
+      console.log("\n" + placeOne + ' ' + placeTwo + ' ' + teenHolder);
+    } else if (totalPlace == 3) {
+      console.log("\n" + placeTwo + ' ' + teenHolder);
+    } else if (totalPlace == 2) {
+      console.log("\n" + teenHolder);
+    } else {
+      console.log("\n" + placeFour);
+    }
+  } else {
+    if (totalPlace == 4) { // Checks for variables are and are not displayed
+      console.log("\n" + placeOne + ' ' + placeTwo + ' ' + placeThree + ' ' + placeFour);
+    } else if (totalPlace == 3) {
+      console.log("\n" + placeTwo + ' ' + placeThree + ' ' + placeFour);
+    } else if (totalPlace == 2) {
+      console.log("\n" + placeThree + ' ' + placeFour);
+    } else {
+      console.log("\n" + placeFour);
+    }
+  }
+
 }
 
 function main() {
   var fileName = 'homework10.data'; // Process homework10.data into a string
   
-   // Download [generic].data
+  // Download [generic].data
   // Split [generic].data
   var __dirname = "C:\\Users\\ben\\src\\dadschool2015";
 
