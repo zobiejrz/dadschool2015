@@ -5,12 +5,17 @@ function onErr(err) {
 function numToWord(intVal) {
   var place = intVal.length;
   var totalPlace = place;
-  var placeOne = '';
-  var placeTwo = '';
-  var placeThree = '';
-  var placeFour = '';
-  var teen = false;
-  var teenHolder
+  var placeOne = '',
+      placeTwo = '',
+      placeThree = '',
+      placeFour = '';
+  var ones = false,
+      tens = false,
+      teen = false,
+      hundreds = false,
+      thousands = false;
+      
+  var teenHolder = '';
   var placeHolder = intVal.split("");
   for (var k = 0; k < placeHolder.length; k++) {
 
@@ -34,6 +39,7 @@ function numToWord(intVal) {
       } else if (placeHolder[k] == 1) {
         placeOne = 'one thousand';
       }
+      thousands = true;
     } else if (place == 3) {
       if (placeHolder[k] == 9) {
         placeTwo = 'nine hundred';
@@ -54,6 +60,7 @@ function numToWord(intVal) {
       } else if (placeHolder[k] == 1) {
         placeTwo = 'one hundred';
       }
+      hundreds = true;
     } else if (place == 2) {
       if (placeHolder[k] == 9) {
         placeThree = 'ninety';
@@ -95,6 +102,7 @@ function numToWord(intVal) {
         }
         teen = true;
       }
+        tens = true;
     } else if ( place == 1 ) {
         if (placeHolder[k] == 9) {
         placeFour = 'nine';
@@ -115,32 +123,69 @@ function numToWord(intVal) {
       } else if (placeHolder[k] == 1) {
         placeFour = 'one';
       }
+      ones = true;
       }
+      
     place--;
   }
-  if (teen == true) {
-    if (totalPlace == 4) { // Checks for variables are and are not displayed
-      console.log("\n" + placeOne + ' ' + placeTwo + ' ' + teenHolder);
-    } else if (totalPlace == 3) {
-      console.log("\n" + placeTwo + ' ' + teenHolder);
-    } else if (totalPlace == 2) {
-      console.log("\n" + teenHolder);
-    } else {
-      console.log("\n" + placeFour);
+  console.log( '\n' + intVal + ' is turned into: ');
+  if ( totalPlace == 4 ) { // Yes Thousands
+    if ( hundreds == true ) { // Yes Thousands Yes Hundreds
+      if ( teen == true ) { // Yes Thousands Yes Hundreds Yes Teens
+        console.log( placeOne + ' ' + placeThree + ' ' + teenHolder );
+      } else if ( tens == true ) { // Yes Thousands Yes Hundreds Yes Tens
+        if ( ones == true ) { // Yes Thousands Yes Hundreds Yes Tens Yes Ones
+          console.log ( placeOne + ' ' + placeTwo + ' ' + placeThree + ' ' + placeFour );
+        } else { // Yes Thousands Yes Hundreds Yes Tens No Ones
+          console.log ( placeOne + ' ' + placeTwo + ' and ' + placeThree );
+        }
+      } else if ( tens == false && teen == false ) { // Yes Thousands Yes Hundreds, Nothing else
+        console.log ( placeOne + ' ' + placeTwo );
+      } else { // Error
+        onErr(intVal);
+      }
+    } else { // Yes Thousands No Hundreds
+      if ( teen == true ) { // Yes Thousands No Hundreds Yes Teens
+        console.log ( placeOne + ' and ' + teenHolder );
+      } else if ( tens == true ) { // Yes Thousands No Hundreds Yes Tens
+        if ( ones == true ) { // Yes Thousands No Hundreds Yes Tens Yes Ones
+          console.log ( placeOne + ' ' + placeThree + ' ' + placeFour );
+        } else { // Yes Thousands No Hundreds Yes Tens No Ones
+          console.log ( placeOne + ' and ' + placeThree );
+        }
+      } else if ( tens == false && ones == true ) { // Yes Thousands No Hundreds No Tens Yes Ones
+        console.log ( placeOne + ' and ' + placeFour );
+      } else { // Error
+        onErr(intVal);
+      }
     }
-  } else {
-    if (totalPlace == 4) { // Checks for variables are and are not displayed
-      console.log("\n" + placeOne + ' ' + placeTwo + ' ' + placeThree + ' ' + placeFour);
-    } else if (totalPlace == 3) {
-      console.log("\n" + placeTwo + ' ' + placeThree + ' ' + placeFour);
-    } else if (totalPlace == 2) {
-      console.log("\n" + placeThree + ' ' + placeFour);
+  } else if ( totalPlace == 3) { // No Thousands Yes Hundreds
+    if ( teen == true ) {
+      console.log( placeTwo + ' ' + teenHolder);
+    } else if ( tens == true ) {
+      if ( ones == true ) {
+        console.log ( placeTwo + ' ' + placeThree + ' ' + placeFour );
+      } else {
+        console.log ( placeTwo + ' ' + placeThree)
+      }
     } else {
-      console.log("\n" + placeFour);
+      console.log ( placeTwo );
     }
+  } else if ( totalPlace == 2) { // No Thousands No Hundreds Yes Tens / Teens
+    if ( teen == true ) { // Yes Teens
+     console.log( teenHolder );
+    } else { // Yes Tens
+      if ( ones == true ) { // Yes Tens Yes Ones
+        console.log ( placeThree + ' ' + placeFour );
+      } else { // Yes Tens No Ones
+        console.log ( placeThree ); 
+      }
+    }
+  } else { // No Thousands No Hundreds No Tens / Teens Yes Ones
+    console.log ( placeFour );
   }
 
-}
+} // End of numToWord();
 
 function main() {
   var fileName = 'homework10.data'; // Process homework10.data into a string
